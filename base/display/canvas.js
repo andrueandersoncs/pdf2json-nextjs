@@ -1210,12 +1210,6 @@ var CanvasGraphics = (function CanvasGraphicsClosure() {
           current.x += x * textHScale;
         }
 
-//MQZ Dec.04.2013 paint string
-//          if (str.indexOf("If single, enter -0-.") >= 0) {
-//              info("fontChar = " + glyphs[0].fontChar);
-//              info(nodeUtil.inspect(glyphs));
-//          }
-
           if (str && !font.disableFontFace) {
               var curFontSize = fontSize * scale * textHScale + 3;
               switch (current.textRenderingMode) {

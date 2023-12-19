@@ -1222,25 +1222,3 @@ function loadJpegStream(id, imageUrl, objs) {
     img.src = 'data:image/jpeg;base64,' + img.btoa(imageUrl);
 }
 
-//MQZ Oct.18.2013 expose util methods
-nodeUtil.p2jlog = log;
-nodeUtil.p2jinfo = info;
-nodeUtil.p2jwarn = warn;
-nodeUtil.p2jerror = error;
-nodeUtil.verbosity = function(verbo) {
-    if (isNaN(verbo)) {
-        verbosity = WARNINGS;
-    }
-    else {
-        if (verbo <= ERRORS) {
-            verbosity = ERRORS;
-        }
-        else if (verbo >= INFOS) {
-            verbosity = INFOS;
-        }
-        else
-            verbosity = verbo;
-    }
-};
-nodeUtil.verbosity();
-

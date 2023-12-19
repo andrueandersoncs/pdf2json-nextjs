@@ -1,5 +1,4 @@
 import fs from "fs";
-import nodeUtil from "util";
 import { readFile } from "fs/promises";
 import { EventEmitter } from "events";
 
@@ -66,7 +65,7 @@ export default class PDFParser extends EventEmitter {
      */
     #onPDFJSParseDataReady(data) {
         if (!data) {
-            nodeUtil.p2jinfo("PDF parsing completed.");
+            console.info("PDF parsing completed.");
             this.emit("pdfParser_dataReady", this.#data);
         }
         else {
@@ -117,7 +116,7 @@ export default class PDFParser extends EventEmitter {
 			PDFParser.#binBuffer[key] = null;	
 			delete PDFParser.#binBuffer[key];	
 
-			nodeUtil.p2jinfo("re-cycled cache for " + key);	
+			console.info("re-cycled cache for " + key);	
 		}	
 
 		return false;
@@ -149,8 +148,7 @@ export default class PDFParser extends EventEmitter {
      * @param {number} verbosity - Verbosity level
      */
 	async loadPDF(pdfFilePath, verbosity) {
-		nodeUtil.verbosity(verbosity || 0);
-		nodeUtil.p2jinfo("about to load PDF file " + pdfFilePath);
+		console.info("about to load PDF file " + pdfFilePath);
 
 		this.#pdfFilePath = pdfFilePath;
 
@@ -164,11 +162,11 @@ export default class PDFParser extends EventEmitter {
                 return;
         
             PDFParser.#binBuffer[this.binBufferKey] = await readFile(pdfFilePath);
-            nodeUtil.p2jinfo(`Load OK: ${pdfFilePath}`);
+            console.info(`Load OK: ${pdfFilePath}`);
             this.#startParsingPDF();
         }
         catch(err) {
-            nodeUtil.p2jerror(`Load Failed: ${pdfFilePath} - ${err}`);
+            console.error(`Load Failed: ${pdfFilePath} - ${err}`);
             this.emit("pdfParser_dataError", err);
         }
 	}
@@ -179,7 +177,6 @@ export default class PDFParser extends EventEmitter {
      * @param {number} verbosity - Verbosity level
      */
 	parseBuffer(pdfBuffer, verbosity) {
-		nodeUtil.verbosity(verbosity || 0);
 		this.#startParsingPDF(pdfBuffer);
 	}
 
